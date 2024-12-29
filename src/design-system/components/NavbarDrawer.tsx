@@ -1,35 +1,38 @@
-
+import React from "react"
 import {
-    DrawerBackdrop,
-    DrawerBody,
-    DrawerCloseTrigger,
-    DrawerContent,
-    DrawerHeader,
-    DrawerRoot,
-    DrawerTitle,
-    DrawerTrigger,
-} from "@/components/ui/drawer"
-import { HamburgerIcon } from '@chakra-ui/icons'
-import { Text } from '@chakra-ui/react'
+  DrawerRoot,
+  DrawerTrigger,
+  DrawerContent,
+  // DrawerCloseTrigger,
+  DrawerHeader,
+  DrawerBody,
+} from "../../components/ui/drawer" 
+import { Flex, Text } from "@chakra-ui/react"
+import { HamburgerIcon } from "@chakra-ui/icons"
+
 const NavbarDrawer = () => {
-    return (
-        <DrawerRoot>
-            <DrawerBackdrop />
-            <DrawerTrigger asChild>
-                <HamburgerIcon h={6} w={6} />
-            </DrawerTrigger>
-            <DrawerContent>
-                <DrawerHeader>
-                    <DrawerTitle>Shop Categories</DrawerTitle>
-                </DrawerHeader>
-                <DrawerBody>
-                    <Text>Handbags</Text>
-                    <Text>Pants</Text>
-                    <Text>Shirts</Text>
-                </DrawerBody>
-                <DrawerCloseTrigger />
-            </DrawerContent>
-        </DrawerRoot>
-    )
+  return (
+    <DrawerRoot placement="left">
+      <DrawerTrigger asChild>
+      <HamburgerIcon h={6} w={6} />
+      </DrawerTrigger>
+      <DrawerContent>
+        {/* <DrawerCloseTrigger /> */}
+        <DrawerHeader>
+          <Text fontSize="xl" fontWeight="bold">
+            Categories
+          </Text>
+        </DrawerHeader>
+        <DrawerBody>
+          <Flex direction="column" gap={4} p={4}>
+            <Text>Handbags</Text>
+            <Text>Pants</Text>
+            <Text>Shirt</Text>
+          </Flex>
+        </DrawerBody>
+      </DrawerContent>
+    </DrawerRoot>
+  )
 }
+
 export default NavbarDrawer
