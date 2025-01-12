@@ -1,7 +1,9 @@
+import useMedia from "@/design-system/ui-logic/hooks/useMedia";
 import { Container, Grid, GridItem, Image, Text, Box } from "@chakra-ui/react";
 import React from "react";
 
 const HomeShopping = () => {
+  const { getImageUrl } = useMedia();
   return (
     <Container mt={12} mb={12}>
       <Grid
@@ -14,7 +16,7 @@ const HomeShopping = () => {
         <GridItem colSpan={1} rowSpan={2} overflow="hidden">
           <Box position="relative" className="group">
             <Image
-              src="/images/light/shirts.avif"
+              src={getImageUrl('shirts.avif')}
               alt="Shirts"
               objectFit="cover"
               w="100%"
@@ -46,7 +48,7 @@ const HomeShopping = () => {
         <GridItem colSpan={1} rowSpan={1} overflow="hidden">
           <Box position="relative" className="group">
             <Image
-              src="/images/light/pants.avif"
+              src={getImageUrl('pants.avif')}
               alt="Pants"
               objectFit="cover"
               w="100%"
@@ -79,7 +81,7 @@ const HomeShopping = () => {
         <GridItem colSpan={1} rowSpan={1} overflow="hidden">
         <Box position="relative" className="group">
             <Image
-              src="/images/light/handbags.avif"
+              src={getImageUrl('handbags.avif')}
               alt="Pants"
               objectFit="cover"
               w="100%"

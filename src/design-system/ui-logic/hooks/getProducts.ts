@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useFetch = <T>() => {
@@ -7,18 +7,20 @@ const useFetch = <T>() => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-    const fetchData = async (url: string) => {
-      try {
-        const response = await axios.get<T>(url);
-        setData(response.data.data);
-      } catch (err: any) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async (url: string) => {
+    try {
+      const response = await axios.get<T>(url);
+      setData(response.data.data);
+    } catch (err: any) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData("/api/products"); 
+  useEffect(() => {
+    fetchData("/api/products");
+  }, []);
 
   return { data, loading, error };
 };
