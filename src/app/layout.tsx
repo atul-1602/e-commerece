@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { Provider } from "@/components/ui/provider"
+import Navbar from "@/design-system/components/Navbar";
+import CopyRights from "@/design-system/components/CopyRights";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
       <Provider>
+      <Navbar/>
         {children}
+        <CopyRights/>
         </Provider>
       </body>
     </html>

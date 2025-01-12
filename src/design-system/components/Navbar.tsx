@@ -5,16 +5,18 @@ import React from "react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 import { useColorMode } from "@/components/ui/color-mode";
-import { colors } from "./color";
+import { colors } from "../ui-logic/color";
 import DropDownMenu from "../../design-system/components/DropDownMenu";
-
+import useMedia from "../ui-logic/hooks/useMedia";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
+  const { getIconUrl } = useMedia()
   const { colorMode, toggleColorMode } = useColorMode();
   const currentColors = colors[colorMode as "light" | "dark"];
-
+  const router = useRouter()
   return (
     <Flex
-      backgroundColor={currentColors.navbarBg}
+      backgroundColor={currentColors?.navbarBg}
       p={2}
       width="100%"
       justifyContent="space-between"
@@ -27,17 +29,29 @@ const Navbar = () => {
         pr={4}
       >
         <NavbarDrawer />
-        <Heading fontSize="xl">Shop Easy</Heading>
+        <Heading
+        cursor="pointer"
+          fontSize="xl"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          Shop Easy
+        </Heading>
       </Flex>
 
       <Flex justifyContent="space-between" alignItems="center" width="auto">
         <DropDownMenu items={["All", "Handbags", "Pants", "Shirts"]} />
-        <Input backgroundColor={currentColors.inputBg} placeholder="search" fontSize="lg"/>
+        <Input
+          backgroundColor={currentColors?.inputBg}
+          placeholder="search"
+          fontSize="lg"
+        />
         <Button
-          backgroundColor={currentColors.searchBtn}
-          color={currentColors.text}
+          backgroundColor={currentColors?.searchBtn}
+          color={currentColors?.text}
           variant="outline"
-          _hover={{ backgroundColor: currentColors.hover }}
+          _hover={{ backgroundColor: currentColors?.hover }}
         >
           Search
         </Button>
@@ -66,11 +80,8 @@ const Navbar = () => {
           />
         )}
         <Image
-          src={
-            colorMode === "light"
-              ? "/images/light/cart.svg"
-              : "/images/dark/cart.svg"
-          }
+          onClick={() => router.push("/cart")}
+          src={getIconUrl("cart.svg")}
           alt="your-cart"
           width={50}
           height={50}
@@ -78,7 +89,8 @@ const Navbar = () => {
         <Button
           variant="outline"
           fontWeight={700}
-          _hover={{ backgroundColor: currentColors.hover }}
+          _hover={{ backgroundColor: currentColors?.hover }}
+          onClick={() => router.push("/signin")}
         >
           Sign In
         </Button>
