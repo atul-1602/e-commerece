@@ -2,15 +2,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = <T>() => {
+const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = async (url: string) => {
+  const fetchData = async () => {
     try {
       const response = await axios.get<T>(url);
-      setData(response.data.data);
+      setData(response.data.data); 
     } catch (err: any) {
       setError(err);
     } finally {
@@ -19,15 +19,15 @@ const useFetch = <T>() => {
   };
 
   useEffect(() => {
-    fetchData("/api/products");
-  }, []);
+    fetchData();
+  }, [url]); 
 
   return { data, loading, error };
 };
 
 
 const useProducts = () => {
-  const { data: products, loading, error } = useFetch<{ id: string; name: string; price: number }[]>();
+  const { data: products, loading, error } = useFetch<{ id: string; name: string; price: number }[]>("/api/products");
   return { products, loading, error };
 };
 
