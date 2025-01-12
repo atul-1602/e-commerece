@@ -1,18 +1,20 @@
 "use client";
 import { useColorMode } from "@/components/ui/color-mode";
 import { colors } from "@/design-system/ui-logic/color";
+import useLogin from "../../design-system/ui-logic/hooks/useLogIn"
 import { Flex, Heading, Input, Button, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-const SignUp = () => {
+
+const Login = () => {
   const { colorMode } = useColorMode();
   const borderColor = colors[colorMode as "light" | "dark"];
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignUp = () => {
-    // Handle sign up logic here
-    console.log("Username:", username);
-    console.log("Password:", password);
+  const { error, fetchData } = useLogin({ username, password });
+
+  const handleLogIn = () => {
+    fetchData();
   };
 
   return (
@@ -26,7 +28,7 @@ const SignUp = () => {
         height={400}
         width={400}
       >
-        <Heading mb={6}>Sign Up</Heading>
+        <Heading mb={6}>Log In</Heading>
 
         <Text mb={2}>Username</Text>
         <Input
@@ -42,12 +44,14 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           mb={6}
         />
-        <Button onClick={handleSignUp} colorScheme="teal">
+        <Button onClick={handleLogIn} colorScheme="teal">
           Sign Up
         </Button>
+
+        {error && <Text color="red.500" mt={4}>{error.message}</Text>}
       </Flex>
     </Flex>
   );
 };
 
-export default SignUp;
+export default Login;

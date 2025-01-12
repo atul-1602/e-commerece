@@ -24,9 +24,9 @@ const Navbar = () => {
       <Flex
         justifyContent="space-between"
         alignItems="center"
-        width="10%"
-        pl={4}
-        pr={4}
+        width="auto"
+        ml={4}
+        gap={4}
       >
         <NavbarDrawer />
         <Heading
@@ -60,9 +60,8 @@ const Navbar = () => {
       <Flex
         justifyContent="space-between"
         alignItems="center"
-        width="12%"
-        pl={4}
-        pr={4}
+        width="auto"
+        gap={2}
       >
         {colorMode === "light" ? (
           <MoonIcon
@@ -90,9 +89,17 @@ const Navbar = () => {
           variant="outline"
           fontWeight={700}
           _hover={{ backgroundColor: currentColors?.hover }}
-          onClick={() => router.push("/signin")}
+          onClick={() => router.push("/signup")}
         >
           Sign In
+        </Button>
+        <Button
+          variant="outline"
+          fontWeight={700}
+          _hover={{ backgroundColor: currentColors?.hover }}
+          onClick={() => router.push("/login")}
+        >
+          Log In
         </Button>
       </Flex>
     </Flex>
