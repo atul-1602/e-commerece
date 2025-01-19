@@ -2,7 +2,7 @@
 import { useColorMode } from "@/components/ui/color-mode";
 import { Rating } from "@/components/ui/rating";
 import { colors } from "@/design-system/ui-logic/color";
-import useProducts from "@/design-system/ui-logic/hooks/getProducts";
+import useProducts from "@/design-system/ui-logic/hooks/useProducts";
 import useMedia from "@/design-system/ui-logic/hooks/useMedia";
 import { Box, Text, Image, Flex, Button, Spinner } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
@@ -29,6 +29,26 @@ const ProductPage = () => {
   if (!product) {
     return <Text>Product not found</Text>;
   }
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    const productIndex = cart.findIndex(item => item.id === product.id);
+  
+    if (productIndex === -1) {
+      cart.push({
+        ...product, 
+        quantity: 1 
+      });
+      console.log('Product added to cart:', product);
+    } else {
+      cart[productIndex].quantity += 1;
+      console.log('Product quantity increased in cart:', product);
+    }
+  
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
+  
+  
 
   return (
     <Flex p={4} justifyContent="center" gap={8} minHeight="100vh">
@@ -61,7 +81,7 @@ const ProductPage = () => {
         </Box>
         <Flex justifyContent="space-around" mt={5}>
           <Button>Buy Now</Button>
-          <Button>Add to cart</Button>
+          <Button onClick={handleAddToCart}>Add to cart</Button>
         </Flex>
       </Flex>
     </Flex>

@@ -4,7 +4,7 @@ import ProductCard from "@/design-system/components/ProductCard";
 import { Container, Grid, Text, Spinner, Center, Box } from "@chakra-ui/react";
 import React, { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import useProducts from "@/design-system/ui-logic/hooks/getProducts";
+import useProducts from "@/design-system/ui-logic/hooks/useProducts";
 
 const LatestProducts = () => {
   const router = useRouter();

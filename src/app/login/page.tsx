@@ -4,17 +4,19 @@ import { colors } from "@/design-system/ui-logic/color";
 import useLogin from "../../design-system/ui-logic/hooks/useLogIn"
 import { Flex, Heading, Input, Button, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const { colorMode } = useColorMode();
   const borderColor = colors[colorMode as "light" | "dark"];
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const { error, fetchData } = useLogin({ username, password });
-
+  
   const handleLogIn = () => {
     fetchData();
+    router.push("/");
   };
 
   return (
@@ -45,7 +47,7 @@ const Login = () => {
           mb={6}
         />
         <Button onClick={handleLogIn} colorScheme="teal">
-          Sign Up
+          Log In
         </Button>
 
         {error && <Text color="red.500" mt={4}>{error.message}</Text>}
