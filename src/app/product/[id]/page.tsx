@@ -39,10 +39,8 @@ const ProductPage = () => {
         ...product, 
         quantity: 1 
       });
-      console.log('Product added to cart:', product);
     } else {
       cart[productIndex].quantity += 1;
-      console.log('Product quantity increased in cart:', product);
     }
   
     localStorage.setItem('cart', JSON.stringify(cart));

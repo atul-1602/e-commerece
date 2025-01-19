@@ -11,7 +11,6 @@ const useFetch = <T>(url: string, payload: object) => {
     setLoading(true);
     setError(null); 
     try {
-      console.log("Sending request:", payload); 
       const response = await axios.post<T>(url, payload, { withCredentials: true });
       setData(response.data);
     } catch (err: any) {
