@@ -2,16 +2,15 @@
 import { useState } from "react";
 import axios from "axios";
 
-// Generic hook for fetching data with payload
 const useFetch = <T>(url: string, payload: object) => {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<boolean>(false); // Initially false, since we're not triggering it automatically
+  const [loading, setLoading] = useState<boolean>(false); 
   const [error, setError] = useState<Error | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.post<T>(url, payload);
+      const response = await axios.post<T>(url, payload, { withCredentials: true });
       setData(response.data);
     } catch (err: any) {
       setError(err);
