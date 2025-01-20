@@ -23,8 +23,8 @@ const getUser = () => {
   }
 
   const decoded = jwt.decode(token)
-
-  return ({user: decoded.username})
+  
+  return ({user: decoded.username, email: decoded.email})
 }
 
 export default getUser
