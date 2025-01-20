@@ -10,7 +10,9 @@ import CustomModal from "@/design-system/components/modals/CustomModal";
 import CheckoutModal from "@/design-system/components/modals/CheckoutModal";
 import usePlaceOrders from "@/design-system/ui-logic/hooks/usePlaceOrders";
 import getUser from "@/design-system/components/getUser";
-import { LuTerminal } from "react-icons/lu";
+import { EmptyState } from "@/components/ui/empty-state"
+import { LuShoppingCart } from "react-icons/lu"
+
 
 const CartPage = () => {
   const { colorMode } = useColorMode();
@@ -83,7 +85,9 @@ const CartPage = () => {
     >
       {cartProducts.length > 0 ? (
         <>
-          <Heading textAlign="center">Your Cart ({cartProducts.length} items)</Heading>
+          <Heading textAlign="center">
+            Your Cart ({cartProducts.length} items)
+          </Heading>
           <Flex
             justifyContent="space-around"
             w="100%"
@@ -99,50 +103,78 @@ const CartPage = () => {
             <CartItem
               key={product.id}
               product={product}
-              onQuantityChange={(newQuantity:number) => {
+              onQuantityChange={(newQuantity: number) => {
                 const updatedProduct = { ...product, quantity: newQuantity };
                 handleQuantityChange(updatedProduct);
               }}
-              onRemoveProduct={(id:number)=>{
-                handleRemoveProduct(id)
+              onRemoveProduct={(id: number) => {
+                handleRemoveProduct(id);
               }}
             />
           ))}
-          <Flex justifyContent="space-between" w="100%" p={4} bg={cardBg?.navbarBg}>
-            <Text fontSize="xl" fontWeight="bold">Total:</Text>
-            <Text fontSize="xl" fontWeight="bold">${totalCost.toFixed(2)}</Text>
+          <Flex
+            justifyContent="space-between"
+            w="100%"
+            p={4}
+            bg={cardBg?.navbarBg}
+          >
+            <Text fontSize="xl" fontWeight="bold">
+              Total:
+            </Text>
+            <Text fontSize="xl" fontWeight="bold">
+              ${totalCost.toFixed(2)}
+            </Text>
           </Flex>
           <Flex pb={4}>
-            <Button onClick={()=>{setOpenModal(true)}}>Checkout</Button>
+            <Button
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            >
+              Checkout
+            </Button>
             <CustomModal
               isOpen={openModal}
-              onClose={()=>{setOpenModal(false)}}
+              onClose={() => {
+                setOpenModal(false);
+              }}
               title="Confirm to place order!"
-              
-             >
-              <CheckoutModal totalCost={totalCost} onClose={()=>{setOpenModal(false)}} confirmOrder={confirmOrder}/>
-             </CustomModal>
+            >
+              <CheckoutModal
+                totalCost={totalCost}
+                onClose={() => {
+                  setOpenModal(false);
+                }}
+                confirmOrder={confirmOrder}
+              />
+            </CustomModal>
           </Flex>
         </>
       ) : (
-        <Flex minH="100vh" flexDirection="column" alignItems="center">
-          <Text textAlign="center" fontSize="xl" fontWeight={700}>No items in your Cart</Text>
-          <Button width="fit-content" onClick={() => router.push("/")}>Continue Shopping</Button>
-        </Flex>
+        <>
+          <EmptyState
+            icon={<LuShoppingCart />}
+            title="Your cart is empty"
+            description="Explore our products and add items to your cart"
+          />
+          <Button width="fit-content" onClick={() => router.push("/")}>
+            Continue Shopping
+          </Button>
+        </>
       )}
       {isAlert && (
         <Alert
-          status={data? "success" : "error"}
+          status={data ? "success" : "error"}
           variant="subtle"
           title={data?.message}
           style={{
-            position: 'fixed',
-            top: '4%',
-            right: '0%',
+            position: "fixed",
+            top: "4%",
+            right: "0%",
             zIndex: 9999, // Ensure it appears above other content
-            width: '40%', // Optional: make it span the full width
-            padding: '1rem', // Optional: add some padding for better spacing
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' // Optional: add shadow for visibility
+            width: "40%", // Optional: make it span the full width
+            padding: "1rem", // Optional: add some padding for better spacing
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Optional: add shadow for visibility
           }}
         />
       )}
