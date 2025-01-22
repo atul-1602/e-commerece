@@ -11,8 +11,8 @@ const useFetch = <T>(url: string, payload: object) => {
     setLoading(true);
     try {
       const response = await axios.post<T>(url, payload, { withCredentials: true });
-      localStorage.setItem('token',response?.data?.token)
-      setData(response?.data?.token);
+
+      setData(response?.data);
     } catch (err: any) {
       setError(err);
     } finally {
@@ -23,7 +23,7 @@ const useFetch = <T>(url: string, payload: object) => {
 };
 
 const useLogIn = ({ username, password }: { username: string, password: string }) => {
-  const { data, loading, error, fetchData } = useFetch<{ id: string; name: string; price: number }[]>(
+  const { data, loading, error, fetchData } = useFetch<{ id: string; username: string; email: string }>(
     "/api/login", 
     { username, password },
   );

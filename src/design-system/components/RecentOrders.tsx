@@ -5,7 +5,6 @@ import OrderCompoenent from './OrderCompoenent';
 
 const RecentOrders = () => {
   const { username } = useParams();
-  
   const { orders, loading, error } = useGetOrders({ username });
 
   if (loading) return <div>Loading...</div>;
