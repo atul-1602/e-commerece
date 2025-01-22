@@ -31,10 +31,11 @@ export async function POST(req) {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    return  NextResponse.json({
+    const res = NextResponse.json({
       message: "Login successful",
-      token: token,
     }, { status: 200 });
+    res.cookies.set("auth_token", token);
+    return res;
   } catch (err) {
     console.error("Error fetching user:", { error: err.message, stack: err.stack });
     return NextResponse.json({ error: "Failed to fetch user details", details: err }, { status: 500 });

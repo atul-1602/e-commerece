@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import CustomModal from "@/design-system/components/modals/CustomModal";
 import CheckoutModal from "@/design-system/components/modals/CheckoutModal";
 import usePlaceOrders from "@/design-system/ui-logic/hooks/usePlaceOrders";
-import getUser from "@/design-system/components/getUser";
+import getUser from "@/design-system/ui-logic/hooks/useGetUser";
 import { EmptyState } from "@/components/ui/empty-state"
 import { LuShoppingCart } from "react-icons/lu"
 

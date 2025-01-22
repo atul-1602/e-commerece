@@ -1,7 +1,6 @@
 'use client'
-import React, { useEffect } from 'react';
-import { Button, Flex, Heading, Input } from "@chakra-ui/react";
-import { Avatar } from "@/components/ui/avatar";
+import React from 'react';
+import { Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import NavbarDrawer from "../components/NavbarDrawer";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { useColorMode } from "@/components/ui/color-mode";
@@ -10,17 +9,17 @@ import DropDownMenu from "../../design-system/components/DropDownMenu";
 import { useRouter } from "next/navigation";
 import useMedia from '../ui-logic/hooks/useMedia';
 import Image from 'next/image';
-import getUser from "../components/getUser"
+import useGetUser from "../../design-system/ui-logic/hooks/useGetUser"
 const Navbar = () => {
   const { getIconUrl } = useMedia();
   const { colorMode, toggleColorMode } = useColorMode();
   const currentColors = colors[colorMode as "light" | "dark"];
   const router = useRouter();
-  const { user } = getUser()
+  const { user } = useGetUser()
 
-  const handleLogOut=()=>{
-    localStorage.removeItem('token');
-    router.push("/")
+  const handleLogOut = () => {
+    document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    router.push('/');
   }
   return (
     <Flex
@@ -114,7 +113,8 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Avatar name={user} onClick={() => router.push(`/profile/${user}`)} />
+            {/* <Avatar name={user} onClick={() => router.push(`/profile/${user}`)} /> */}
+            <Text onClick={() => router.push(`/profile/${user}`)} cursor="pointer">{user.username}</Text>
             <Button
               variant="outline"
               fontWeight={700}

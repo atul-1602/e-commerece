@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import connectToDB from "../../../../lib/connection";
 import User from "../../../../models/user";
-
 import jwt from "jsonwebtoken"; // Import jsonwebtoken for generating JWT
 
 export async function POST(req) {
@@ -27,13 +26,7 @@ export async function POST(req) {
       user: { username: newUser.username, email: newUser.email },
     }, { status: 201 });
 
-    res.cookies.set("auth_token", token, {
-      httpOnly: true,  
-      secure: false,   
-      sameSite: "Strict", 
-      maxAge: 60 * 60 * 24 * 7, 
-    });
-    
+    res.cookies.set("auth_token", token);
     return res;
 
   } catch (err) {

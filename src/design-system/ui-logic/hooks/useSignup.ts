@@ -23,7 +23,10 @@ const useFetch = <T>(url: string, payload: object) => {
 };
 
 const useSignUp = ({ username, email, password }: { username: string, email: string, password: string }) => {
-  const { data, loading, error, fetchData } = useFetch<{ id: string; name: string; price: number }[]>("/api/signup", { username, email, password });
+  const { data, loading, error, fetchData } = useFetch<{ message: string; user: { username: string; email: string } }>(
+    "/api/signup",
+    { username, email, password }
+  );
 
   return { data, loading, error, fetchData };
 };
