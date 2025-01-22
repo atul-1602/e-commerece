@@ -114,7 +114,7 @@ const Navbar = () => {
         ) : (
           <>
             {/* <Avatar name={user} onClick={() => router.push(`/profile/${user}`)} /> */}
-            <Text onClick={() => router.push(`/profile/${user}`)} cursor="pointer">{user.username}</Text>
+            <Text onClick={() => router.push(`/profile/${user?.username}`)} cursor="pointer">{user.username}</Text>
             <Button
               variant="outline"
               fontWeight={700}
