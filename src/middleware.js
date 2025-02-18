@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 export function middleware(req) {
   const cookieStore = cookies();
   const authToken = cookieStore.get('auth_token');
-  // for all routes except login and register
   if (!authToken) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
